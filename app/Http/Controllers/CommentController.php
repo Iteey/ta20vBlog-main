@@ -13,7 +13,12 @@ class CommentController extends Controller
 {
     public function comment(Post $post)
     {
-        //
+        $search = new Comment();
+        $search -> body = request()->input('comment');
+        $search -> user() -> associate(Auth::user());
+        $search -> post() -> associate($post);
+        $search -> save();
+        return redirect()->back();
     }
 
 }
